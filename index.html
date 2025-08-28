@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Assessment Portal - Symbiotic Learning</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .watermark {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.1;
+            font-size: 4rem;
+            font-weight: bold;
+            color: #3a7bd5;
+            transform: rotate(-15deg);
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .welcome-screen, .login-screen, .test-screen, .results-screen {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .welcome-screen h2 {
+            color: #3a7bd5;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-left: 5px solid #3a7bd5;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #3a7bd5;
+        }
+        
+        .question-container {
+            padding: 20px;
+            text-align: left;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question h3 {
+            margin-bottom: 15px;
+            color: #3a7bd5;
+        }
+        
+        .options {
+            list-style: none;
+        }
+        
+        .options li {
+            margin-bottom: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .options li:hover {
+            background: #e9ecef;
+        }
+        
+        .options li.selected {
+            background: #d1ecf1;
+            border: 2px solid #0c5460;
+        }
+        
+        .section-title {
+            background: #3a7bd5;
+            color: white;
+            padding: 10px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 2px solid #e9ecef;
+        }
+        
+        .results-screen h2 {
+            color: #3a7bd5;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #3a7bd5;
+            margin: 20px 0;
+        }
+        
+        .solution {
+            text-align: left;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .solution h4 {
+            color: #3a7bd5;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .test-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .question {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CBSE Assessment Portal - Symbiotic Learning</h1>
+            <p>Transforming Potential into Achievement</p>
+            <div class="watermark">Symbiotic</div>
+        </div>
+        
+        <div class="content">
+            <!-- Welcome Screen -->
+            <div class="welcome-screen" id="welcomeScreen">
+                <h2>Welcome to CBSE Assessment Portal</h2>
+                <div class="quote">
+                    "It's tireless dedication that transforms potential into achievement. Your journey to excellence begins here."
+                </div>
+                <p>This assessment will evaluate your knowledge in Mathematics, Science, and English based on CBSE 9th-10th curriculum.</p>
+                <p>Total questions: 50 | Time allotted: 60 minutes</p>
+                <button class="btn" onclick="showLogin()">Let's Start the Test <i class="fas fa-arrow-right"></i></button>
+            </div>
+            
+            <!-- Login Screen -->
+            <div class="login-screen" id="loginScreen" style="display: none;">
+                <h2>Login to Your Account</h2>
+                <div class="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password">
+                    </div>
+                    <p style="margin-bottom: 20px; font-size: 0.9rem; color: #666;">
+                        Demo credentials: username - student123, password - symbiotic2023
+                    </p>
+                    <button class="btn" onclick="startTest()">Begin Test <i class="fas fa-play"></i></button>
+                </div>
+            </div>
+            
+            <!-- Test Screen -->
+            <div class="test-screen" id="testScreen" style="display: none;">
+                <div class="test-header">
+                    <div>Time Remaining: <span class="timer" id="timer">60:00</span></div>
+                    <div>Questions: <span id="progress">1/50</span></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="section-title">Mathematics (20 Questions)</div>
+                    
+                    <!-- Math Questions 1-20 -->
+                    <div class="question" id="q1">
+                        <h3>1. If the polynomial x³ - 6x² + 11x - 6 is divided by (x - 2), what is the remainder?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q1')">A) 0</li>
+                            <li onclick="selectOption(this, 'q1')">B) 1</li>
+                            <li onclick="selectOption(this, 'q1')">C) 2</li>
+                            <li onclick="selectOption(this, 'q1')">D) -1</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q2">
+                        <h3>2. In a right triangle, if one acute angle is 35°, what is the other acute angle?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q2')">A) 45°</li>
+                            <li onclick="selectOption(this, 'q2')">B) 55°</li>
+                            <li onclick="selectOption(this, 'q2')">C) 65°</li>
+                            <li onclick="selectOption(this, 'q2')">D) 145°</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q3">
+                        <h3>3. The area of a rhombus is 96 cm² and one diagonal is 12 cm. Find the other diagonal.</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q3')">A) 16 cm</li>
+                            <li onclick="selectOption(this, 'q3')">B) 14 cm</li>
+                            <li onclick="selectOption(this, 'q3')">C) 18 cm</li>
+                            <li onclick="selectOption(this, 'q3')">D) 20 cm</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q4">
+                        <h3>4. If sin θ = 3/5, then cos θ equals:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q4')">A) 4/5</li>
+                            <li onclick="selectOption(this, 'q4')">B) 3/4</li>
+                            <li onclick="selectOption(this, 'q4')">C) 5/3</li>
+                            <li onclick="selectOption(this, 'q4')">D) 4/3</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q5">
+                        <h3>5. The coordinates of the point which divides the line segment joining A(2,3) and B(6,7) in the ratio 1:3 internally are:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q5')">A) (3, 4)</li>
+                            <li onclick="selectOption(this, 'q5')">B) (4, 5)</li>
+                            <li onclick="selectOption(this, 'q5')">C) (2.5, 3.5)</li>
+                            <li onclick="selectOption(this, 'q5')">D) (3.5, 4.5)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q6">
+                        <h3>6. If the sum of first n terms of an AP is 3n² + 2n, then the common difference is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q6')">A) 6</li>
+                            <li onclick="selectOption(this, 'q6')">B) 3</li>
+                            <li onclick="selectOption(this, 'q6')">C) 2</li>
+                            <li onclick="selectOption(this, 'q6')">D) 5</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q7">
+                        <h3>7. The volume of a cone is 1232 cm³ and its base radius is 7 cm. Find its height. (Use π = 22/7)</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q7')">A) 12 cm</li>
+                            <li onclick="selectOption(this, 'q7')">B) 15 cm</li>
+                            <li onclick="selectOption(this, 'q7')">C) 16 cm</li>
+                            <li onclick="selectOption(this, 'q7')">D) 18 cm</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q8">
+                        <h3>8. If α and β are zeros of the polynomial 2x² - 5x + 3, then α + β equals:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q8')">A) 5/2</li>
+                            <li onclick="selectOption(this, 'q8')">B) 3/2</li>
+                            <li onclick="selectOption(this, 'q8')">C) -5/2</li>
+                            <li onclick="selectOption(this, 'q8')">D) 2/5</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q9">
+                        <h3>9. The probability of getting a sum of 9 when two dice are thrown is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q9')">A) 1/9</li>
+                            <li onclick="selectOption(this, 'q9')">B) 1/6</li>
+                            <li onclick="selectOption(this, 'q9')">C) 4/36</li>
+                            <li onclick="selectOption(this, 'q9')">D) 1/4</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q10">
+                        <h3>10. If tan A = 1/√3, then the value of sin A cos A is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q10')">A) 1/4</li>
+                            <li onclick="selectOption(this, 'q10')">B) √3/4</li>
+                            <li onclick="selectOption(this, 'q10')">C) 1/2</li>
+                            <li onclick="selectOption(this, 'q10')">D) √3/6</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q11">
+                        <h3>11. The median of the data: 5, 8, 12, x, 18, 20 is 11. Find x.</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q11')">A) 10</li>
+                            <li onclick="selectOption(this, 'q11')">B) 9</li>
+                            <li onclick="selectOption(this, 'q11')">C) 11</li>
+                            <li onclick="selectOption(this, 'q11')">D) 8</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q12">
+                        <h3>12. If the perimeter of a semicircle is 36 cm, find its radius. (Use π = 22/7)</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q12')">A) 7 cm</li>
+                            <li onclick="selectOption(this, 'q12')">B) 6 cm</li>
+                            <li onclick="selectOption(this, 'q12')">C) 8 cm</li>
+                            <li onclick="selectOption(this, 'q12')">D) 9 cm</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q13">
+                        <h3>13. Solve: √(x + 7) = x + 1</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q13')">A) x = 2</li>
+                            <li onclick="selectOption(this, 'q13')">B) x = 3</li>
+                            <li onclick="selectOption(this, 'q13')">C) x = 2 or x = -4</li>
+                            <li onclick="selectOption(this, 'q13')">D) x = 2 (only valid solution)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q14">
+                        <h3>14. If the ratio of areas of two similar triangles is 16:25, then the ratio of their corresponding sides is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q14')">A) 16:25</li>
+                            <li onclick="selectOption(this, 'q14')">B) 4:5</li>
+                            <li onclick="selectOption(this, 'q14')">C) 8:10</li>
+                            <li onclick="selectOption(this, 'q14')">D) 2:3</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q15">
+                        <h3>15. The distance between points (3, -2) and (-1, 2) is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q15')">A) 4√2</li>
+                            <li onclick="selectOption(this, 'q15')">B) 6</li>
+                            <li onclick="selectOption(this, 'q15')">C) 5</li>
+                            <li onclick="selectOption(this, 'q15')">D) 3√2</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q16">
+                        <h3>16. If x + 1/x = 5, then x² + 1/x² equals:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q16')">A) 23</li>
+                            <li onclick="selectOption(this, 'q16')">B) 25</li>
+                            <li onclick="selectOption(this, 'q16')">C) 27</li>
+                            <li onclick="selectOption(this, 'q16')">D) 21</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q17">
+                        <h3>17. The sum of first 20 terms of the series 7, 10, 13, 16,... is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q17')">A) 710</li>
+                            <li onclick="selectOption(this, 'q17')">B) 650</li>
+                            <li onclick="selectOption(this, 'q17')">C) 740</li>
+                            <li onclick="selectOption(this, 'q17')">D) 680</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q18">
+                        <h3>18. In triangle ABC, if ∠A = 90°, AB = 8 cm, BC = 10 cm, then AC equals:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q18')">A) 6 cm</li>
+                            <li onclick="selectOption(this, 'q18')">B) 4 cm</li>
+                            <li onclick="selectOption(this, 'q18')">C) 5 cm</li>
+                            <li onclick="selectOption(this, 'q18')">D) 7 cm</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q19">
+                        <h3>19. If sec θ + tan θ = 2, then sec θ - tan θ equals:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q19')">A) 1/2</li>
+                            <li onclick="selectOption(this, 'q19')">B) 2</li>
+                            <li onclick="selectOption(this, 'q19')">C) 1</li>
+                            <li onclick="selectOption(this, 'q19')">D) 1/4</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q20">
+                        <h3>20. The area of the sector of a circle with radius 14 cm and central angle 60° is: (Use π = 22/7)</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q20')">A) 102⅔ cm²</li>
+                            <li onclick="selectOption(this, 'q20')">B) 98 cm²</li>
+                            <li onclick="selectOption(this, 'q20')">C) 108 cm²</li>
+                            <li onclick="selectOption(this, 'q20')">D) 88 cm²</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section-title">Science (20 Questions)</div>
+                    
+                    <!-- Physics Questions 21-32 -->
+                    <div class="question" id="q21">
+                        <h3>21. A car travels 60 km in the first hour, 80 km in the second hour, and 40 km in the third hour. What is its average speed?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q21')">A) 60 km/h</li>
+                            <li onclick="selectOption(this, 'q21')">B) 50 km/h</li>
+                            <li onclick="selectOption(this, 'q21')">C) 70 km/h</li>
+                            <li onclick="selectOption(this, 'q21')">D) 55 km/h</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q22">
+                        <h3>22. A stone is dropped from a height of 45 m. How long does it take to reach the ground? (g = 10 m/s²)</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q22')">A) 3 seconds</li>
+                            <li onclick="selectOption(this, 'q22')">B) 4 seconds</li>
+                            <li onclick="selectOption(this, 'q22')">C) 2 seconds</li>
+                            <li onclick="selectOption(this, 'q22')">D) 5 seconds</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q23">
+                        <h3>23. The power of a lens is +2.5 D. What is its focal length?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q23')">A) 0.4 m</li>
+                            <li onclick="selectOption(this, 'q23')">B) 0.25 m</li>
+                            <li onclick="selectOption(this, 'q23')">C) 2.5 m</li>
+                            <li onclick="selectOption(this, 'q23')">D) 0.5 m</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q24">
+                        <h3>24. A body weighs 60 N on Earth. What will be its weight on the moon? (g_moon = g_earth/6)</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q24')">A) 60 N</li>
+                            <li onclick="selectOption(this, 'q24')">B) 10 N</li>
+                            <li onclick="selectOption(this, 'q24')">C) 360 N</li>
+                            <li onclick="selectOption(this, 'q24')">D) 6 N</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q25">
+                        <h3>25. The resistance of a wire is 10 Ω. If it is stretched to double its length, what will be its new resistance?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q25')">A) 20 Ω</li>
+                            <li onclick="selectOption(this, 'q25')">B) 40 Ω</li>
+                            <li onclick="selectOption(this, 'q25')">C) 5 Ω</li>
+                            <li onclick="selectOption(this, 'q25')">D) 10 Ω</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q26">
+                        <h3>26. A current of 2 A flows through a 5 Ω resistor for 10 seconds. How much heat is produced?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q26')">A) 100 J</li>
+                            <li onclick="selectOption(this, 'q26')">B) 200 J</li>
+                            <li onclick="selectOption(this, 'q26')">C) 400 J</li>
+                            <li onclick="selectOption(this, 'q26')">D) 50 J</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q27">
+                        <h3>27. The frequency of a sound wave is 500 Hz and its wavelength is 0.68 m. What is the speed of sound?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q27')">A) 340 m/s</li>
+                            <li onclick="selectOption(this, 'q27')">B) 320 m/s</li>
+                            <li onclick="selectOption(this, 'q27')">C) 360 m/s</li>
+                            <li onclick="selectOption(this, 'q27')">D) 300 m/s</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q28">
+                        <h3>28. An object is placed 30 cm from a concave mirror of focal length 20 cm. Where is the image formed?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q28')">A) 60 cm from mirror</li>
+                            <li onclick="selectOption(this, 'q28')">B) 50 cm from mirror</li>
+                            <li onclick="selectOption(this, 'q28')">C) 40 cm from mirror</li>
+                            <li onclick="selectOption(this, 'q28')">D) 45 cm from mirror</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q29">
+                        <h3>29. A force of 20 N acts on a body of mass 4 kg. What is the acceleration produced?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q29')">A) 5 m/s²</li>
+                            <li onclick="selectOption(this, 'q29')">B) 4 m/s²</li>
+                            <li onclick="selectOption(this, 'q29')">C) 80 m/s²</li>
+                            <li onclick="selectOption(this, 'q29')">D) 16 m/s²</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q30">
+                        <h3>30. The kinetic energy of a body of mass 2 kg moving with velocity 10 m/s is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q30')">A) 200 J</li>
+                            <li onclick="selectOption(this, 'q30')">B) 100 J</li>
+                            <li onclick="selectOption(this, 'q30')">C) 20 J</li>
+                            <li onclick="selectOption(this, 'q30')">D) 400 J</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q31">
+                        <h3>31. Two resistors of 4 Ω and 6 Ω are connected in parallel. Their equivalent resistance is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q31')">A) 10 Ω</li>
+                            <li onclick="selectOption(this, 'q31')">B) 2.4 Ω</li>
+                            <li onclick="selectOption(this, 'q31')">C) 5 Ω</li>
+                            <li onclick="selectOption(this, 'q31')">D) 1.2 Ω</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q32">
+                        <h3>32. The refractive index of glass is 1.5. What is the critical angle for total internal reflection?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q32')">A) 42°</li>
+                            <li onclick="selectOption(this, 'q32')">B) 48°</li>
+                            <li onclick="selectOption(this, 'q32')">C) 30°</li>
+                            <li onclick="selectOption(this, 'q32')">D) 60°</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Chemistry Questions 33-36 -->
+                    <div class="question" id="q33">
+                        <h3>33. What is the molecular formula of methane?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q33')">A) CH₄</li>
+                            <li onclick="selectOption(this, 'q33')">B) C₂H₆</li>
+                            <li onclick="selectOption(this, 'q33')">C) C₃H₄</li>
+                            <li onclick="selectOption(this, 'q33')">D) CH₃OH</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q34">
+                        <h3>34. Which of the following is a reducing agent in the reaction: CuO + H₂ → Cu + H₂O?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q34')">A) CuO</li>
+                            <li onclick="selectOption(this, 'q34')">B) H₂</li>
+                            <li onclick="selectOption(this, 'q34')">C) Cu</li>
+                            <li onclick="selectOption(this, 'q34')">D) H₂O</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q35">
+                        <h3>35. The pH of a neutral solution at 25°C is:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q35')">A) 0</li>
+                            <li onclick="selectOption(this, 'q35')">B) 7</li>
+                            <li onclick="selectOption(this, 'q35')">C) 14</li>
+                            <li onclick="selectOption(this, 'q35')">D) 1</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q36">
+                        <h3>36. Which gas is evolved when zinc reacts with dilute hydrochloric acid?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q36')">A) Oxygen</li>
+                            <li onclick="selectOption(this, 'q36')">B) Chlorine</li>
+                            <li onclick="selectOption(this, 'q36')">C) Hydrogen</li>
+                            <li onclick="selectOption(this, 'q36')">D) Carbon dioxide</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Biology Questions 37-40 -->
+                    <div class="question" id="q37">
+                        <h3>37. Which tissue is responsible for the transport of water in plants?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q37')">A) Phloem</li>
+                            <li onclick="selectOption(this, 'q37')">B) Xylem</li>
+                            <li onclick="selectOption(this, 'q37')">C) Cambium</li>
+                            <li onclick="selectOption(this, 'q37')">D) Parenchyma</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q38">
+                        <h3>38. The process by which green plants make their food is called:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q38')">A) Respiration</li>
+                            <li onclick="selectOption(this, 'q38')">B) Photosynthesis</li>
+                            <li onclick="selectOption(this, 'q38')">C) Transpiration</li>
+                            <li onclick="selectOption(this, 'q38')">D) Excretion</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q39">
+                        <h3>39. Which part of the human brain controls balance and posture?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q39')">A) Cerebrum</li>
+                            <li onclick="selectOption(this, 'q39')">B) Medulla</li>
+                            <li onclick="selectOption(this, 'q39')">C) Cerebellum</li>
+                            <li onclick="selectOption(this, 'q39')">D) Pons</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q40">
+                        <h3>40. The hormone insulin is produced by which organ?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q40')">A) Liver</li>
+                            <li onclick="selectOption(this, 'q40')">B) Kidney</li>
+                            <li onclick="selectOption(this, 'q40')">C) Pancreas</li>
+                            <li onclick="selectOption(this, 'q40')">D) Thyroid</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="section-title">English (10 Questions)</div>
+                    
+                    <!-- English Questions 41-50 -->
+                    <div class="question" id="q41">
+                        <h3>41. Choose the synonym of "Meticulous":</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q41')">A) Careless</li>
+                            <li onclick="selectOption(this, 'q41')">B) Careful</li>
+                            <li onclick="selectOption(this, 'q41')">C) Reckless</li>
+                            <li onclick="selectOption(this, 'q41')">D) Hasty</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q42">
+                        <h3>42. Fill in the blank: "She has been living here _____ five years."</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q42')">A) since</li>
+                            <li onclick="selectOption(this, 'q42')">B) from</li>
+                            <li onclick="selectOption(this, 'q42')">C) for</li>
+                            <li onclick="selectOption(this, 'q42')">D) by</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q43">
+                        <h3>43. Identify the correctly spelled word:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q43')">A) Definately</li>
+                            <li onclick="selectOption(this, 'q43')">B) Definitely</li>
+                            <li onclick="selectOption(this, 'q43')">C) Definatly</li>
+                            <li onclick="selectOption(this, 'q43')">D) Definetely</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q44">
+                        <h3>44. Choose the correct sentence:</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q44')">A) Neither of the boys are present</li>
+                            <li onclick="selectOption(this, 'q44')">B) Neither of the boys is present</li>
+                            <li onclick="selectOption(this, 'q44')">C) Neither of the boy are present</li>
+                            <li onclick="selectOption(this, 'q44')">D) Neither of the boy is present</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q45">
+                        <h3>45. What is the antonym of "Abundant"?</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q45')">A) Plenty</li>
+                            <li onclick="selectOption(this, 'q45')">B) Scarce</li>
+                            <li onclick="selectOption(this, 'q45')">C) Sufficient</li>
+                            <li onclick="selectOption(this, 'q45')">D) Ample</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q46">
+                        <h3>46. Fill in the blank: "The meeting has been _____ until next week."</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q46')">A) postponed</li>
+                            <li onclick="selectOption(this, 'q46')">B) preponed</li>
+                            <li onclick="selectOption(this, 'q46')">C) advanced</li>
+                            <li onclick="selectOption(this, 'q46')">D) promoted</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q47">
+                        <h3>47. Choose the correct form: "I wish I _____ rich."</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q47')">A) am</li>
+                            <li onclick="selectOption(this, 'q47')">B) was</li>
+                            <li onclick="selectOption(this, 'q47')">C) were</li>
+                            <li onclick="selectOption(this, 'q47')">D) will be</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q48">
+                        <h3>48. Identify the part of speech of the underlined word: "He runs <u>quickly</u>."</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q48')">A) Noun</li>
+                            <li onclick="selectOption(this, 'q48')">B) Verb</li>
+                            <li onclick="selectOption(this, 'q48')">C) Adjective</li>
+                            <li onclick="selectOption(this, 'q48')">D) Adverb</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q49">
+                        <h3>49. Choose the correct preposition: "She is good _____ mathematics."</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q49')">A) in</li>
+                            <li onclick="selectOption(this, 'q49')">B) at</li>
+                            <li onclick="selectOption(this, 'q49')">C) on</li>
+                            <li onclick="selectOption(this, 'q49')">D) with</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" id="q50">
+                        <h3>50. Fill in the blank with the correct article: "_____ Ganga is a sacred river."</h3>
+                        <ul class="options">
+                            <li onclick="selectOption(this, 'q50')">A) A</li>
+                            <li onclick="selectOption(this, 'q50')">B) An</li>
+                            <li onclick="selectOption(this, 'q50')">C) The</li>
+                            <li onclick="selectOption(this, 'q50')">D) No article needed</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn" onclick="showWelcome()"><i class="fas fa-home"></i> Home</button>
+                    <button class="btn" onclick="submitTest()">Submit Test <i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+            
+            <!-- Results Screen -->
+            <div class="results-screen" id="resultsScreen" style="display: none;">
+                <h2>Test Results</h2>
+                <p>Congratulations on completing the assessment!</p>
+                <div class="score" id="finalScore">0/50</div>
+                <p id="scorePercentage">You scored 0% in this assessment.</p>
+                
+                <h3 style="margin-top: 30px; color: #3a7bd5;">Solutions:</h3>
+                
+                <div class="solution">
+                    <h4>Mathematics Solutions:</h4>
+                    <p><strong>1. Correct answer: A) 0</strong> - Using remainder theorem, f(2) = (2)³ - 6(2)² + 11(2) - 6 = 8 - 24 + 22 - 6 = 0</p>
+                    <p><strong>2. Correct answer: B) 55°</strong> - Sum of angles in triangle = 180°. Right angle = 90°, so 90° + 35° + x = 180° → x = 55°</p>
+                    <p><strong>3. Correct answer: A) 16 cm</strong> - Area of rhombus = (d₁ × d₂)/2 → 96 = (12 × d₂)/2 → d₂ = 16 cm</p>
+                    <p><strong>4. Correct answer: A) 4/5</strong> - Using identity sin²θ + cos²θ = 1, cosθ = √(1 - (3/5)²) = √(1 - 9/25) = √(16/25) = 4/5</p>
+                    <p><strong>5. Correct answer: A) (3, 4)</strong> - Using section formula, x = (1×6 + 3×2)/(1+3) = (6+6)/4 = 12/4 = 3, y = (1×7 + 3×3)/(1+3) = (7+9)/4 = 16/4 = 4</p>
+                    <p><strong>6. Correct answer: A) 6</strong> - Sₙ = 3n² + 2n, S₁ = 3(1)² + 2(1) = 5, S₂ = 3(4) + 4 = 16, a₁ = 5, a₂ = S₂ - S₁ = 11, d = a₂ - a₁ = 6</p>
+                    <p><strong>7. Correct answer: C) 16 cm</strong> - Volume of cone = (1/3)πr²h → 1232 = (1/3)×(22/7)×7²×h → h = (1232×3×7)/(22×49) = 16 cm</p>
+                    <p><strong>8. Correct answer: A) 5/2</strong> - For quadratic ax²+bx+c, sum of roots = -b/a = 5/2</p>
+                    <p><strong>9. Correct answer: A) 1/9</strong> - Possible outcomes: (3,6), (4,5), (5,4), (6,3) → 4/36 = 1/9</p>
+                    <p><strong>10. Correct answer: A) 1/4</strong> - tan A = 1/√3 → A = 30°, sin A cos A = (1/2)(√3/2) = √3/4</p>
+                    <p><strong>11. Correct answer: A) 10</strong> - For even number of terms, median = average of (n/2)th and (n/2+1)th terms → (12+x)/2 = 11 → x = 10</p>
+                    <p><strong>12. Correct answer: A) 7 cm</strong> - Perimeter of semicircle = πr + 2r = r(π+2) = 36 → r(22/7+2) = 36 → r(36/7) = 36 → r = 7 cm</p>
+                    <p><strong>13. Correct answer: D) x = 2 (only valid solution)</strong> - Squaring both sides: x+7 = (x+1)² → x+7 = x²+2x+1 → x²+x-6=0 → (x+3)(x-2)=0 → x=-3 or x=2, but x=-3 is extraneous</p>
+                    <p><strong>14. Correct answer: B) 4:5</strong> - Ratio of areas = (ratio of sides)² → 16:25 = (4:5)²</p>
+                    <p><strong>15. Correct answer: A) 4√2</strong> - Distance = √[(3-(-1))² + (-2-2)²] = √[16+16] = √32 = 4√2</p>
+                    <p><strong>16. Correct answer: A) 23</strong> - (x+1/x)² = x²+2+1/x² = 25 → x²+1/x² = 23</p>
+                    <p><strong>17. Correct answer: A) 710</strong> - This is an AP with a=7, d=3, S₂₀ = (20/2)[2×7 + (20-1)×3] = 10[14+57] = 10×71 = 710</p>
+                    <p><strong>18. Correct answer: A) 6 cm</strong> - Using Pythagoras theorem: AC = √(BC² - AB²) = √(100-64) = √36 = 6 cm</p>
+                    <p><strong>19. Correct answer: A) 1/2</strong> - sec²θ - tan²θ = 1 → (secθ+tanθ)(secθ-tanθ)=1 → 2×(secθ-tanθ)=1 → secθ-tanθ=1/2</p>
+                    <p><strong>20. Correct answer: A) 102⅔ cm²</strong> - Area of sector = (θ/360)×πr² = (60/360)×(22/7)×14² = (1/6)×(22/7)×196 = (1/6)×616 = 102.67 = 102⅔ cm²</p>
+                </div>
+                
+                <div class="solution">
+                    <h4>Science Solutions:</h4>
+                    <h5>Physics:</h5>
+                    <p><strong>21. Correct answer: A) 60 km/h</strong> - Total distance = 60+80+40 = 180 km, total time = 3 hours, average speed = 180/3 = 60 km/h</p>
+                    <p><strong>22. Correct answer: A) 3 seconds</strong> - Using h = ½gt² → 45 = ½×10×t² → t² = 9 → t = 3 seconds</p>
+                    <p><strong>23. Correct answer: A) 0.4 m</strong> - Power = 1/f → f = 1/P = 1/2.5 = 0.4 m</p>
+                    <p><strong>24. Correct answer: B) 10 N</strong> - Weight on moon = (1/6)×weight on earth = (1/6)×60 = 10 N</p>
+                    <p><strong>25. Correct answer: B) 40 Ω</strong> - Resistance R ∝ L², so if length doubles, resistance becomes 4 times → 4×10 = 40 Ω</p>
+                    <p><strong>26. Correct answer: B) 200 J</strong> - Heat = I²Rt = (2)²×5×10 = 4×5×10 = 200 J</p>
+                    <p><strong>27. Correct answer: A) 340 m/s</strong> - Speed = frequency × wavelength = 500 × 0.68 = 340 m/s</p>
+                    <p><strong>28. Correct answer: A) 60 cm from mirror</strong> - Using mirror formula: 1/f = 1/v + 1/u → 1/20 = 1/v + 1/(-30) → 1/v = 1/20 + 1/30 = 5/60 → v = 60 cm</p>
+                    <p><strong>29. Correct answer: A) 5 m/s²</strong> - F = ma → a = F/m = 20/4 = 5 m/s²</p>
+                    <p><strong>30. Correct answer: B) 100 J</strong> - KE = ½mv² = ½×2×100 = 100 J</p>
+                    <p><strong>31. Correct answer: B) 2.4 Ω</strong> - 1/R = 1/4 + 1/6 = 5/12 → R = 12/5 = 2.4 Ω</p>
+                    <p><strong>32. Correct answer: A) 42°</strong> - Critical angle θ = sin⁻¹(1/μ) = sin⁻¹(1/1.5) = sin⁻¹(0.6667) ≈ 42°</p>
+                    
+                    <h5>Chemistry:</h5>
+                    <p><strong>33. Correct answer: A) CH₄</strong> - Methane is the simplest hydrocarbon with formula CH₄</p>
+                    <p><strong>34. Correct answer: B) H₂</strong> - H₂ is the reducing agent as it reduces CuO to Cu</p>
+                    <p><strong>35. Correct answer: B) 7</strong> - pH of neutral solution is always 7 at 25°C</p>
+                    <p><strong>36. Correct answer: C) Hydrogen</strong> - Zn + 2HCl → ZnCl₂ + H₂↑</p>
+                    
+                    <h5>Biology:</h5>
+                    <p><strong>37. Correct answer: B) Xylem</strong> - Xylem tissue transports water and minerals in plants</p>
+                    <p><strong>38. Correct answer: B) Photosynthesis</strong> - Photosynthesis is the process by which plants make food using sunlight</p>
+                    <p><strong>39. Correct answer: C) Cerebellum</strong> - The cerebellum controls balance, coordination, and posture</p>
+                    <p><strong>40. Correct answer: C) Pancreas</strong> - Insulin is produced by the beta cells of the pancreas</p>
+                </div>
+                
+                <div class="solution">
+                    <h4>English Solutions:</h4>
+                    <p><strong>41. Correct answer: B) Careful</strong> - Meticulous means showing great attention to detail; very careful and precise.</p>
+                    <p><strong>42. Correct answer: C) for</strong> - "For" is used with a period of time, while "since" is used with a point in time.</p>
+                    <p><strong>43. Correct answer: B) Definitely</strong> - This is the correct spelling of the word meaning without doubt.</p>
+                    <p><strong>44. Correct answer: B) Neither of the boys is present</strong> - "Neither" is singular and takes a singular verb.</p>
+                    <p><strong>45. Correct answer: B) Scarce</strong> - Abundant means plentiful, so the antonym is scarce.</p>
+                    <p><strong>46. Correct answer: A) postponed</strong> - Postponed means to delay something to a later time.</p>
+                    <p><strong>47. Correct answer: C) were</strong> - "I wish I were" is the correct subjunctive form for hypothetical situations.</p>
+                    <p><strong>48. Correct answer: D) Adverb</strong> - "Quickly" modifies the verb "runs", so it's an adverb.</p>
+                    <p><strong>49. Correct answer: B) at</strong> - We use "good at" to indicate proficiency in a subject or activity.</p>
+                    <p><strong>50. Correct answer: C) The</strong> - We use "the" before the names of rivers.</p>
+                </div>
+                
+                <div class="quote">
+                    "Your performance demonstrates strong understanding across all subjects. Keep up the good work!"
+                </div>
+                <button class="btn" onclick="showWelcome()"><i class="fas fa-redo"></i> Take Another Test</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>www.symbioticlearning.com | © 2023 Symbiotic Learning. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Store correct answers
+        const correctAnswers = {
+            'q1': 'A) 0',
+            'q2': 'B) 55°',
+            'q3': 'A) 16 cm',
+            'q4': 'A) 4/5',
+            'q5': 'A) (3, 4)',
+            'q6': 'A) 6',
+            'q7': 'C) 16 cm',
+            'q8': 'A) 5/2',
+            'q9': 'A) 1/9',
+            'q10': 'A) 1/4',
+            'q11': 'A) 10',
+            'q12': 'A) 7 cm',
+            'q13': 'D) x = 2 (only valid solution)',
+            'q14': 'B) 4:5',
+            'q15': 'A) 4√2',
+            'q16': 'A) 23',
+            'q17': 'A) 710',
+            'q18': 'A) 6 cm',
+            'q19': 'A) 1/2',
+            'q20': 'A) 102⅔ cm²',
+            'q21': 'A) 60 km/h',
+            'q22': 'A) 3 seconds',
+            'q23': 'A) 0.4 m',
+            'q24': 'B) 10 N',
+            'q25': 'B) 40 Ω',
+            'q26': 'B) 200 J',
+            'q27': 'A) 340 m/s',
+            'q28': 'A) 60 cm from mirror',
+            'q29': 'A) 5 m/s²',
+            'q30': 'B) 100 J',
+            'q31': 'B) 2.4 Ω',
+            'q32': 'A) 42°',
+            'q33': 'A) CH₄',
+            'q34': 'B) H₂',
+            'q35': 'B) 7',
+            'q36': 'C) Hydrogen',
+            'q37': 'B) Xylem',
+            'q38': 'B) Photosynthesis',
+            'q39': 'C) Cerebellum',
+            'q40': 'C) Pancreas',
+            'q41': 'B) Careful',
+            'q42': 'C) for',
+            'q43': 'B) Definitely',
+            'q44': 'B) Neither of the boys is present',
+            'q45': 'B) Scarce',
+            'q46': 'A) postponed',
+            'q47': 'C) were',
+            'q48': 'D) Adverb',
+            'q49': 'B) at',
+            'q50': 'C) The'
+        };
+
+        // Function to show login screen
+        function showLogin() {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'block';
+        }
+        
+        // Function to start the test
+        function startTest() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (username !== 'student123' || password !== 'symbiotic2023') {
+                alert('Invalid credentials. Please use username: student123, password: symbiotic2023');
+                return;
+            }
+            
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('testScreen').style.display = 'block';
+            startTimer(60 * 60); // 60 minutes timer in seconds
+        }
+        
+        // Function to show welcome screen
+        function showWelcome() {
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('testScreen').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('welcomeScreen').style.display = 'block';
+            
+            // Reset all selections
+            const selectedOptions = document.querySelectorAll('.selected');
+            selectedOptions.forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+        
+        // Function to submit test and show results
+        function submitTest() {
+            document.getElementById('testScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+            clearInterval(timerInterval);
+            
+            // Calculate score
+            let score = 0;
+            for (let i = 1; i <= 50; i++) {
+                const questionId = 'q' + i;
+                const selectedOption = document.querySelector(`#${questionId} .selected`);
+                if (selectedOption && selectedOption.textContent === correctAnswers[questionId]) {
+                    score++;
+                }
+            }
+            
+            // Display score
+            document.getElementById('finalScore').textContent = `${score}/50`;
+            const percentage = (score / 50) * 100;
+            document.getElementById('scorePercentage').textContent = `You scored ${percentage}% in this assessment.`;
+        }
+        
+        // Function to select an option
+        function selectOption(element, questionId) {
+            // Remove selected class from all options in this question
+            const options = document.querySelectorAll(`#${questionId} .options li`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+        }
+        
+        // Timer functionality
+        let timerInterval;
+        function startTimer(duration) {
+            let timer = duration;
+            updateTimerDisplay(timer);
+            
+            timerInterval = setInterval(function() {
+                timer--;
+                updateTimerDisplay(timer);
+                
+                if (timer <= 0) {
+                    clearInterval(timerInterval);
+                    submitTest();
+                }
+            }, 1000);
+        }
+        
+        function updateTimerDisplay(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+    </script>
+</body>
+</html>
